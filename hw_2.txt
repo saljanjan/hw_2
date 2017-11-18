@@ -1,0 +1,60 @@
+Sub tickerVolume()
+    
+    Dim ticker As String
+    Dim I As Long
+    Dim TotalVolume As Double
+    TotalVolume = 0
+    Dim LastRow As Long
+    Dim WS_Count As Integer
+    Dim G As Integer
+    
+
+        LastRow = Cells(Rows.Count, "A").End(xlUp).Row
+     
+    
+        Dim Summary_Table_Row As Integer
+        Summary_Table_Row = 2
+    
+     
+        Cells(1, 9).Value = "Ticker"
+        Cells(1, 10).Value = "Total Volume"
+        
+        
+    WS_Count = ActiveWorkbook.Worksheets.Count
+    'For  WS_Count = ThisWorkbook.Sheets.Count
+    For G = 1 To WS_Count
+        
+    For I = 2 To LastRow
+
+        If Cells(I + 1, 1).Value <> Cells(I, 1).Value Then
+    
+
+          ticker = Cells(I, 1).Value
+    
+         
+          TotalVolume = TotalVolume + Cells(I, 7).Value
+          
+          
+          Range("I" & Summary_Table_Row).Value = ticker
+          
+          
+          Range("J" & Summary_Table_Row).Value = TotalVolume
+          
+          
+          Summary_Table_Row = Summary_Table_Row + 1
+          
+          
+          TotalVolume = 0
+        
+        Else
+        
+          TotalVolume = TotalVolume + Cells(I, 7).Value
+            'WS_Count = ActiveWorkbook.Worksheets.Count
+        End If
+    
+      Next I
+    Next G
+   'Next WS_Count
+    
+ End Sub
+
